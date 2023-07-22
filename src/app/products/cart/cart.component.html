@@ -1,0 +1,183 @@
+<!-- empty cart  -->
+
+<div class="container" *ngIf="allcart.length==0">
+    <div class="row mt-3">
+        <div class="col text-center">
+            <!-- empty wishlist page  -->
+            <img style="box-shadow:rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;;"
+                src="https://media1.giphy.com/media/giXLnhxp60zEEIkq8K/200w.webp?cid=ecf05e47qsofcp1bv6bjkznr4eunpzzschqncxqb01vug3lr&ep=v1_gifs_search&rid=200w.webp&ct=g"
+                alt="">
+            <h1>your cart is empty</h1>
+            <button class="btn btn-outline-warning text-warning bg-dark ms-5" routerLink="">shop more</button>
+        </div>
+    </div>
+</div>
+
+<!-- cart with content  -->
+<div class="container" *ngIf="allcart.length!==0">
+    <div class="row">
+        <div class="col-6">
+            <!-- table  -->
+            <table class="mt-5 mb-5 text-warning bg-dark" style=" box-shadow: rgb(196, 152, 8) 0px 20px 30px -10px;">
+                <thead>
+                    <tr class="border border-warning">
+                        <th class="border border-warning">No</th>
+                        <th class="border border-warning">Name</th>
+                        <th class="border border-warning">Image</th>
+                        <th class="border border-warning">Quantity</th>
+                        <th class="border border-warning">Price</th>
+                        <th class="border border-warning">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cart of allcart;let i =index" class="border border-warning">
+                        <td class="border border-warning">{{i+1}}</td>
+                        <td class="border border-warning">{{cart.title}}</td>
+                        <td class="border border-warning">
+                            <img width="100px" [src]="cart.image" alt="">
+                        </td>
+                        <td class="border border-warning">
+                            <div class="d-flex p-0">
+                                <button class="btn text-warning ms-1 me-2" (click)="decrementCart(cart.id)">-</button>
+                                <input type="text" class="form-control w-50" readonly value={{cart.quantity}}>
+                                <button class="btn text-warning ms-1 me-2" (click)="incrementCart(cart.id)">+</button>
+                            </div>
+
+                        </td>
+                        <td class="border border-warning ms-1 me-2">${{cart.price}}</td>
+                        <td class="border border-warning">
+                            <i (click)="removecart(cart.id)" class="fa-solid fa-trash ms-1 me-2"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-6 card mt-5 mb-5 border-warning text-warning bg-dark " style="width: 400px;">
+            <!-- summary  -->
+            <h3>Price:${{totalprice}}</h3>
+            <h1>Grand Total: <span class="text-danger"> ${{totalprice}}</span></h1>
+            <div class="text-center m-5">
+                <button class="btn btn-warning" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop">CheckOut</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div  class="modal fade border border-warning" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 400px; background-image: url(https://images.pexels.com/photos/6331082/pexels-photo-6331082.jpeg?auto=compress&cs=tinysrgb&w=600) ;">
+            <div class="modal-header" >
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Check Out Details</h1>
+                <button type="button" (click)="modalClose()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body w-3" >
+                <form [formGroup]="checkForm" (ngSubmit)="check()" *ngIf="!paymentStatus" >
+                    <h3>Enter your delivery details</h3>
+                    <!-- name  -->
+                    <div class="form-floating mb-3">
+                        <input name="name" formControlName="name" type="text" class="form-control border border-warning"
+                            placeholder="enter your name">
+                        <div *ngIf="this.checkForm.get('name')?.errors &&this.checkForm.get('name')?.touched"
+                            class="text-danger">invalid data</div>
+                        <label for="floatingInput">Enter Name</label>
+                    </div>
+                    <!-- email  -->
+                    <div class="form-floating mb-3">
+                        <input name="email" formControlName="email" type="text"
+                            class="form-control border border-warning" placeholder="enter your email">
+                        <div *ngIf="this.checkForm.get('email')?.errors &&this.checkForm.get('email')?.touched"
+                            class="text-danger">invalid data</div>
+                        <label for="floatingInput">Enter Email</label>
+                    </div>
+                    <!-- house number -->
+                    <div class="form-floating  mb-3">
+                        <input name="housenumber" formControlName="housenumber" type="text"
+                            class="form-control border border-warning" placeholder="House Number">
+                        <div *ngIf="this.checkForm.get('housenumber')?.errors &&this.checkForm.get('housenumber')?.touched"
+                            class="text-danger">invalid data</div>
+                            <label for="floatingPassword">House Number</label>
+
+                       
+                    </div>
+                    <!-- street name  -->
+                    <div class="form-floating  mb-3">
+                        <input name="streetname" formControlName="streetname" type="text"
+                            class="form-control border border-warning" placeholder="street name">
+                        <div *ngIf="this.checkForm.get('streetname')?.errors &&this.checkForm.get('streetname')?.touched"
+                            class="text-danger">invalid data</div>
+
+                        <label for="floatingPassword">Street Name</label>
+                    </div>
+                    <!-- state  -->
+                    <div class="form-floating  mb-3">
+                        <input name="state" formControlName="state" type="text" class="form-control border border-warning" placeholder="state">
+                        <div *ngIf="this.checkForm.get('state')?.errors &&this.checkForm.get('state')?.touched"
+                            class="text-danger">invalid data</div>
+
+                        <label for="floatingPassword">State</label>
+                    </div>
+                    <!-- phone number  -->
+                    <div class="form-floating   mb-3">
+                        <input name="phonenumber" formControlName="phonenumber" type="text"
+                            class="form-control border border-warning" placeholder="phone number">
+                        <div *ngIf="this.checkForm.get('phonenumber')?.errors &&this.checkForm.get('phonenumber')?.touched"
+                            class="text-danger">invalid data</div>
+
+                        <label for="floatingPassword">Phone number</label>
+                    </div>
+                    <!-- proceed to pay  -->
+                    <div class="text-center mb-3 border-warning">
+                        <button type="submit" class="btn btn-warning">proceed to pay</button>
+
+                    </div>
+
+                </form>
+
+                <!-- // adress details  -->
+                <div *ngIf="paymentStatus">
+                    <h5>Delivery adress details</h5>
+                    <p>{{name}}</p>
+                    <p>{{email}}</p>
+                    <p>{{housenumber}}</p>
+                    <p>{{streetname}}</p>
+                    <p>{{state}}</p>
+                    <p>{{phonenumber}}</p>
+                </div>
+
+                <!-- total price and offer price  -->
+                <div class="d-flex justify-content-between">
+                    <h3 class="text-success">Total Price: ${{totalprice}}</h3> 
+                    <h4 (click)="offerClick()" *ngIf="!discountClicks" class="text-danger">offers: <i class="fa-solid fa-tag fa-beat-fade"></i> </h4>
+                </div>
+
+                <!-- discount  -->
+                <div *ngIf="offerClicked" class="d-flex justify-content-center mb-3 rounded-5">
+                    <!-- 10% image  -->
+                    <img (click)="discount(10)" *ngIf="totalprice<500" height="100px" width="100px" src="https://img.freepik.com/free-photo/front-view-young-male-holding-yellow-background_140725-103809.jpg?size=626&ext=jpg&ga=GA1.1.508740776.1683795015&semt=ais" alt="">
+                  <!-- 10% image  -->
+                  <img (click)="discount(50)"  *ngIf="totalprice>1000" height="100px" width="100px"  src="https://img.freepik.com/premium-vector/shopping-design-blue-background-vector-illustration_24877-30910.jpg?size=626&ext=jpg&ga=GA1.1.508740776.1683795015&semt=ais" alt="">
+
+
+                    
+                </div>
+
+                <!-- make payment  -->
+                <div *ngIf="discountClicks && !showPaypalStatus" class="d-flex justify-content-center mb-3">
+                  
+                    <button (click)="PaypalPay()" class="btn btn-dark text-warning border border-warning">Make A Payment</button>
+                </div>
+
+                <!-- paypal button  -->
+                <div  *ngIf="showPaypalStatus">
+                    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                </div>
+
+            </div>
+          
+        </div>
+    </div>
+</div>

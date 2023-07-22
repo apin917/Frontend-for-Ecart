@@ -1,0 +1,38 @@
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" routerLink="">
+            <h1><i class="fa-solid fa-bag-shopping"></i> Am <span style="font-family: 'Abril Fatface', cursive;">
+                    FLIP</span></h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <div class="ms-5">
+                <input (keyup)="search($event)" type="text" placeholder="search product here"
+                    class="form-control-outline-warning border-warning">
+            </div>
+
+            <form class="d-flex">
+                <!-- Wishlist button  -->
+                <button class="btn btn-outline-warning text-warning bg-dark ms-5" type="submit"
+                    routerLink="products/wishlist">
+                    <i class="fa-solid fa-star text-danger"></i>
+                    Wishlist
+
+                </button>
+                <!--cart button 2  -->
+                <button class=" ms-5 btn btn-outline-warning text-warning bg-dark" type="submit"
+                    routerLink="products/cart">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    Cart
+                    <span class="badge bg-dark text-warning ms-1 rounded-pill">{{cartcounts}}</span>
+                </button>
+            </form>
+
+           
+        </div>
+    </div>
+</nav>

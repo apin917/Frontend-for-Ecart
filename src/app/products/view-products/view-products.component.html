@@ -1,0 +1,28 @@
+<!-- Product section-->
+<section class="py-5">
+    <div class="container  my-5 ">
+        <div style="box-shadow: rgba(61, 61, 57, 0.877) 0px 5px 15px;" class="row gx-4 gx-lg-5 align-items-center border border-warning  p-5 rounded-5">
+            <div style=" box-shadow: rgb(187, 145, 8) 0px 20px 30px -10px;" class="col-md-6  align-items-center"><img style="width: 300px;"
+                    class="card-img-top mb-5 mb-md-0 " [src]="product.image" alt="..." /></div>
+            <div class="col-md-6">
+                <div class="small mb-1 text-warning">{{product._id}}</div>
+                <h3 class="display-5 fw-bolder">{{product.title}}</h3>
+                <div class="fs-5 mb-2">
+                    <span class="text-warning" style="font-size: 20px; font-weight: bold;">${{product.price}}</span>
+                </div>
+                <p style="font-size:15px; font-weight: bold;" class="lead ">{{product.description}}</p>
+                <div class="d-flex">
+                    <button (click)="addtowishlist()" class="btn btn-outline-dark mt-auto text-warning bg-danger flex-shrink-0 me-4"
+                        type="button">
+                        <i class="fa-solid fa-star text-warning"></i>
+                        Add to Wishlist
+                    </button>
+                    <button  (click)="addtocart(product)" class="btn btn-outline-warning mt-auto text-warning bg-dark flex-shrink-0" type="button">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        Add to cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

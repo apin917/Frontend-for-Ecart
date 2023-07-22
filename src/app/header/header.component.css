@@ -1,0 +1,22 @@
+.navbar{
+    background-color: black ;
+    color:yellow;
+/* font-family: 'Abril Fatface', cursive; */
+font-family: 'Poppins', sans-serif;
+
+}
+img{
+    width: 30px;
+    border-radius: 50px;
+    padding: 5px;
+    left: 10px;
+}
+.navbar a{
+    color: #fbb70e;
+    left: 100px;
+    text-shadow: rgb(94, 89, 72) 0px 20px 30px -10px;
+}
+input{
+    border: 3px solid yellow;
+    border-radius: 10px;
+}
