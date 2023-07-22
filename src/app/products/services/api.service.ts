@@ -16,7 +16,7 @@ export class ApiService {
     this.cartCount()
    }
 
-  BASE_URL = 'http://localhost:5000'
+  BASE_URL = 'https://backend-for-ecart-website-x3ld.onrender.com'
   //get all products from momgodb
   getAllProducts() {
     return this.http.get(`${this.BASE_URL}/products/allProducts`)
